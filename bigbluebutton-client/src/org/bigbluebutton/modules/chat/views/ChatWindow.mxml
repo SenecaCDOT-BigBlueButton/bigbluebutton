@@ -191,5 +191,5 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 		]]>
 	</mx:Script>
 	
-	<views:ChatView id="chatView" chatOptions="{chatOptions}" includeInLayout="false"/>
+	<views:ChatView id="chatView" chatOptions="{chatOptions}" baseIndex="{this.baseIndex + 4}" includeInLayout="false"/>
 </MDIWindow>

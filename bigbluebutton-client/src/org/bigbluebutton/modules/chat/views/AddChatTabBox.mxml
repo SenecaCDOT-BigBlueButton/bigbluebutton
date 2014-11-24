@@ -52,6 +52,8 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
             
             [Bindable] public var chatOptions:ChatOptions = new ChatOptions();		
             
+			[Bindable] public var baseIndex:int;
+			
             private function init():void{
                 users = UserManager.getInstance().getConference().users;
             }
@@ -113,12 +115,16 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
             <mx:List id="usersList" height="100%" width="100%" dataProvider="{users}" dragEnabled="false" 
                      visible="{chatOptions.privateEnabled}" includeInLayout="{chatOptions.privateEnabled}"
                      itemRenderer="org.bigbluebutton.modules.chat.views.UserRenderer"
+					 tabIndex="{baseIndex}"
                      itemClick="openPrivateChat(event)" toolTip="{ResourceUtil.getInstance().getString('bbb.chat.usersList.toolTip')}"/>
             <mx:VBox id="optionsBox" height="100%" width="50%" >
                 <mx:Label text="{ResourceUtil.getInstance().getString('bbb.chat.chatOptions')}" />
                 <mx:HBox width="100%">
                     <mx:Label text="{ResourceUtil.getInstance().getString('bbb.chat.fontSize')}" />
-                    <mx:ComboBox width="60" id="cmbFontSize" dataProvider="{fontSizes}" close="changeFontSize()" selectedIndex="1" toolTip="{ResourceUtil.getInstance().getString('bbb.chat.cmbFontSize.toolTip')}"/>
+                    <mx:ComboBox width="60" id="cmbFontSize" dataProvider="{fontSizes}" 
+								 close="changeFontSize()" selectedIndex="1" 
+								 tabIndex="{baseIndex + 1}"
+								 toolTip="{ResourceUtil.getInstance().getString('bbb.chat.cmbFontSize.toolTip')}"/>
                 </mx:HBox>
             </mx:VBox>
         </mx:VBox>

@@ -321,7 +321,7 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
         }        
       }
       
-			private function handlePageLoadedEvent(e:PageLoadedEvent):void {
+      private function handlePageLoadedEvent(e:PageLoadedEvent):void {
         trace(LOG + "Got a page loaded event for page [" + e.pageId + "]");
         var page:Page = PresentationModel.getInstance().getPage(e.pageId);
         if (page != null) {
@@ -331,14 +331,12 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 //          positionPage(page);
           
           //slideLoader.accessibilityProperties.description = "Slide text start:  " + e.slideText + "    Slide text end";
-//          slideLoader.accessibilityDescription = ResourceUtil.getInstance().getString("bbb.presentation.slideloader.starttext") + 
-//                                                 page.txtData + ResourceUtil.getInstance().getString("bbb.presentation.slideloader.endtext");
-//          slideLoader.accessibilityName = ResourceUtil.getInstance().getString("bbb.presentation.slideloader.starttext") + 
-//                                                 page.txtData + ResourceUtil.getInstance().getString("bbb.presentation.slideloader.endtext");
-          
-          
+          //slideLoader.accessibilityDescription = ResourceUtil.getInstance().getString("bbb.presentation.slideloader.starttext") + 
+          //                                       page.txtData + ResourceUtil.getInstance().getString("bbb.presentation.slideloader.endtext");
+          //slideLoader.accessibilityName = ResourceUtil.getInstance().getString("bbb.presentation.slideloader.starttext") + 
+          //                                       page.txtData + ResourceUtil.getInstance().getString("bbb.presentation.slideloader.endtext");
         }
-			}
+      }
 			
       private function becomeViewer():void {
         removeEventListener(MouseEvent.MOUSE_WHEEL, onMouseWheelZoomEvent);

@@ -22,11 +22,11 @@ package org.bigbluebutton.modules.present.model
     
     private var _swfLoader:URLLoader;
     private var _swfLoaded:Boolean = false;
-    private var _swfLoadedListener:Function;
+	
+    private var _loadedListener:Function;
     
     private var _txtLoader:URLLoader;
     private var _txtLoaded:Boolean = false;
-    private var _txtLoadedListener:Function;
     
     public function Page(id: String, num: int, current: Boolean,
                 swfUri: String, thumbUri: String, txtUri: String,
@@ -78,20 +78,22 @@ package org.bigbluebutton.modules.present.model
       return null;
     }
     
-    public function loadSwf(swfLoadedListener:Function):void {
-      if (_swfLoaded) {
-        swfLoadedListener(_id);
-      } else {
-        _swfLoadedListener = swfLoadedListener;
-        _swfLoader.load(new URLRequest(_swfUri));
+    public function loadSwf(loadedListener:Function):void {
+      _loadedListener = loadedListener;
+      if (_swfLoaded) { // && _txtLoaded) {
+        if (loadedListener) loadedListener(_id);
+		return;
       }
+	  
+	  if (!_swfLoaded) _swfLoader.load(new URLRequest(_swfUri));
+	  //if (!_txtLoaded) _txtLoader.load(new URLRequest(_txtUri));
     }
     
     private function handleSwfLoadingComplete(e:Event):void{
       _swfLoaded = true;
-      if (_swfLoadedListener != null) {
-        _swfLoadedListener(_id);
-      }		
+      if (_loadedListener != null) { // && _txtLoaded) {
+        _loadedListener(_id);
+      }
     }
 
     public function get txtData():String {
@@ -101,21 +103,12 @@ package org.bigbluebutton.modules.present.model
       return null;
     }
     
-    public function loadTxt(txtLoadedListener:Function):void {
-      if (_txtLoaded) {
-        txtLoadedListener(_id);
-      } else {
-        _txtLoadedListener = txtLoadedListener;
-        _txtLoader.load(new URLRequest(_txtUri));
-      }
-    }
-    
     private function handleTextLoadingComplete(e:Event):void{
       _txtLoaded = true;
-      if (_txtLoadedListener != null) {
-        _txtLoadedListener(_id);
-      }		
-    }    
+      if (_loadedListener != null && _swfLoaded) {
+        _loadedListener(_id);
+      }
+    }
     
   }
 }

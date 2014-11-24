@@ -85,7 +85,7 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 			
       [Bindable] public var chatOptions:ChatOptions;
 	  
-	    [Bindable] private var baseIndex:int;
+	    [Bindable] public var baseIndex:int;
       
 		  private static const PUBLIC_TAB_NEW:String = ResourceUtil.getInstance().getString("bbb.accessibility.chat.chatView.publicTabNew");
 		  private var publicWaiting:Boolean = false;
@@ -102,8 +102,6 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 			private function init():void {
 				chatOptions = new ChatOptions();
 				noticeLabel = ResourceUtil.getInstance().getString('bbb.chat.chatTabs.accessibleNotice');
-				// Get the base tab index from config, and add four to make up for the min/max/close buttons and title overlay
-				baseIndex = chatOptions.getBaseIndex() + 4;
 			}
 			
 
@@ -278,7 +276,7 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 				var chatBox:ChatBox = new ChatBox();
 				chatBox.id = chatWithUserID;
 		    chatBox.name = chatWithUserID;
-				chatBox.baseIndex = baseIndex;
+				chatBox.baseIndex = baseIndex + 2;
 		        
 		    if (publicChat) {
 		      chatBox.label = PUBLIC_CHAT_USERNAME
@@ -307,6 +305,7 @@ with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
 				tabBox.label = OPTION_TAB_ID;
 				tabBox.name = OPTION_TAB_ID;
 				tabBox.chatOptions = chatOptions;
+				tabBox.baseIndex = baseIndex + 2;
 				
 				tabBox.addEventListener(KeyboardEvent.KEY_DOWN, tabBox.accessibleClick);
 				chatTabs.addChild(tabBox);
